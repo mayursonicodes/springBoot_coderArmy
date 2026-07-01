@@ -1,0 +1,79 @@
+| Concept          | What it controls                     | Options                                      |
+| ---------------- | ------------------------------------ | -------------------------------------------- |
+| Scope            | How many bean objects Spring creates | Singleton, Prototype, Request, Session, etc. |
+| Initialization   | When Spring creates the bean         | Eager, Lazy                                  |
+
+* Simple definition:-
+    Scope = Number of objects.
+    Lazy/Eager = Time of object creation.
+
+1. Singleton Scope (Default):-
+    Spring creates only one bean(object) for the entire Spring container.
+    (orderService_1 == orderService_2) --> true
+
+2. Prototype Scope:-
+    Spring creates a new object every time when it is requested/required.
+    (orderService_1 == orderService_2) --> false
+
+3. Eager Initialization (Default):-
+    Spring creates all the bean when the application starts.
+
+4. Lazy Initialization:-
+    Spring creates the bean only when it is needed for the first time.
+
+** How Scope and Lazy/Eager Work Together **
+
+1. Singleton + Eager (Default):-
+    One object
+    Created at startup
+
+    * Fow:-
+    Application Start
+          ↓
+    Create One Object
+          ↓
+    Reuse Same Object
+
+2. Singleton + Lazy:-
+    One object
+    Created only when first requested
+
+    * Fow:-
+    Application Start
+          ↓
+    No Object
+
+    First Use
+          ↓
+    Create One Object
+
+    Later Uses
+          ↓
+    Reuse Same Object
+
+3. Prototype + Eager:-
+    Not possible, Since prototype beans are intended to be created on demand, Spring typically creates a new instance each time the bean is requested rather than pre-creating instances at startup.
+
+4. Prototype + Lazy:-
+    Only this is possible with prototype.
+    Everytime new object will be created.
+
+    * Fow:-
+    getBean()
+    ↓
+    Object 1
+
+    getBean()
+    ↓
+    Object 2
+
+    getBean()
+    ↓
+    Object 3
+
+** Easy way to remember **
+
+    Singleton → One object.
+    Prototype → New object every request.
+    Eager → Create immediately when the application starts.
+    Lazy → Create only when first needed.
